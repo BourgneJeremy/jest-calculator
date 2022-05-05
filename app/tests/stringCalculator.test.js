@@ -25,9 +25,16 @@ describe("String calculator tests", () => {
         })
     });
 
+    // Fonctions avancées JS 
+    // ---------------------
+    // map, reduce, filter
     describe("Errors", () => {
-        test('Expect -46 to be Error not allowed', () => {
+        test('Expect "-46" to be Error not allowed', () => {
             expect(() => stringCalculator.add("-46")).toThrow(`Negatives not allowed. -46`);
+        })
+
+        test('Expect "-46,-47,-78" to be Error with multiple negative numbers', () => {
+            expect(() => stringCalculator.add("-46,-47,-78")).toThrow(`Negatives not allowed. -46,-47,-78`);
         })
     })
 

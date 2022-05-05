@@ -5,30 +5,37 @@ export default class StringCalculator {
         if (typeof numbers === 'undefined' || numbers.length == 0)
             return 0;
 
+        let sum = 0;
+        let negativeNumbers = [];
+
         if (typeof numbers === 'string') {
             // process the values
             let splitedNumbers = numbers.split(",");
-            let sum = 0;
-
-            splitedNumbers.forEach((item) => {
+            splitedNumbers.forEach((item, index) => {
                 if (item.includes(" ")) throw new Error;
                 item = this.removeDelimiters(item);
 
                 let number = parseInt(item);
-                console.log(number);
-                if (number < 0) 
-                {
-                    throw new Error(`Negatives not allowed. ${item}`);
-                }
 
+                if (number < 0) {
+                    if (splitedNumbers.length > 1) {
+                        negativeNumbers.push(number);
+                    } else {
+                        throw new Error(`Negatives not allowed. ${item}`);
+                    }
+                }
+                
                 sum += parseInt(item);
             })
-
-            console.log(sum);
-            return sum;
         }
 
-        return numbers;
+        // NEGATIVE NUMBERS
+        let negativeNumbersStr = negativeNumbers.join(',');
+        
+        if (negativeNumbers.length > 0)
+            throw new Error(`Negatives not allowed. ${negativeNumbersStr}`);
+
+        return sum;
     }
 
     removeDelimiters(item) {
